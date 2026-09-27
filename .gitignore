@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+*.safetensors
+*.bin
+*.pt
+*.pth
+.ipynb_checkpoints/
+.DS_Store
+*.psd
+*.log

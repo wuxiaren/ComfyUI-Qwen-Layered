@@ -1,0 +1,21 @@
+[project]
+name = "comfyui-qwen-layered"
+description = "ComfyUI nodes for Qwen-Image-Layered: decompose images into RGBA layers and export PSD files"
+version = "0.1.0"
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = [
+    "diffusers>=0.33.0",
+    "transformers>=4.51.3",
+    "accelerate>=0.20.0",
+    "Pillow>=9.0.0",
+    "numpy>=1.21.0",
+]
+
+[project.urls]
+Repository = "https://github.com/wuxiaren/ComfyUI-Qwen-Layered"
+
+[tool.comfy]
+PublisherId = "wuxiaren"
+DisplayName = "ComfyUI-Qwen-Layered"
+Icon = ""

@@ -1,0 +1,100 @@
+{
+  "last_node_id": 7,
+  "last_link_id": 6,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [100, 100],
+      "size": [320, 320],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [1], "slot_index": 0},
+        {"name": "MASK", "type": "MASK", "links": null, "slot_index": 1}
+      ],
+      "properties": {"Node name for S&R": "LoadImage"},
+      "widgets_values": ["example.png", "image"]
+    },
+    {
+      "id": 2,
+      "type": "QwenLayered_LoadModel",
+      "pos": [100, 500],
+      "size": [320, 180],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {"name": "model", "type": "QWEN_LAYERED_MODEL", "links": [2], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "QwenLayered_LoadModel"},
+      "widgets_values": ["Qwen/Qwen-Image-Layered", "bf16", true, true]
+    },
+    {
+      "id": 3,
+      "type": "QwenLayered_Decompose",
+      "pos": [500, 200],
+      "size": [360, 420],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 1},
+        {"name": "model", "type": "QWEN_LAYERED_MODEL", "link": 2}
+      ],
+      "outputs": [
+        {"name": "layers_data", "type": "QWEN_LAYERED_LAYERS", "links": [3], "slot_index": 0},
+        {"name": "preview", "type": "IMAGE", "links": [4], "slot_index": 1}
+      ],
+      "properties": {"Node name for S&R": "QwenLayered_Decompose"},
+      "widgets_values": [4, 640, 50, 4.0, false, true, "", " ", 42]
+    },
+    {
+      "id": 4,
+      "type": "QwenLayered_SavePSD",
+      "pos": [950, 200],
+      "size": [320, 120],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {"name": "layers_data", "type": "QWEN_LAYERED_LAYERS", "link": 3}
+      ],
+      "outputs": [
+        {"name": "info_file", "type": "STRING", "links": null, "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "QwenLayered_SavePSD"},
+      "widgets_values": ["qwen_layered"]
+    },
+    {
+      "id": 5,
+      "type": "PreviewImage",
+      "pos": [950, 400],
+      "size": [320, 320],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 4}
+      ],
+      "outputs": [],
+      "properties": {"Node name for S&R": "PreviewImage"}
+    }
+  ],
+  "links": [
+    [1, 1, 0, 3, 0, "IMAGE"],
+    [2, 2, 0, 3, 1, "QWEN_LAYERED_MODEL"],
+    [3, 3, 0, 4, 0, "QWEN_LAYERED_LAYERS"],
+    [4, 3, 1, 5, 0, "IMAGE"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {"scale": 1.0, "offset": [0, 0]},
+    "scale": 1.0
+  },
+  "version": 0.4
+}
